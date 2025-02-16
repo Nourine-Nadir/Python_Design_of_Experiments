@@ -1,1 +1,1 @@
-Design of Experiemnts tool using Python
+# Design of Experiments tool using Python

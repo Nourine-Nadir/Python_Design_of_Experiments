@@ -10,7 +10,7 @@ df = engine.read_sheet('Step1.xlsx',)
 data = np.array(df)
 
 features = np.array(data[:,1:-2]).astype(np.float32)
-outputs = np.array(data[:,-2:]).astype(np.float32)
+outputs = np.array(data[:,-2:-1]).astype(np.float32)
 
 train_features, test_features, train_outputs, test_outputs = train_test_split(
     features, outputs, test_size=0.2, random_state=23
@@ -38,7 +38,7 @@ NN_model = FC_net(lr=0.001,
 features = T.tensor(np.array(train_features), device=NN_model.device)
 labels = T.tensor(np.array(train_outputs), device=NN_model.device)
 
-for i in range(500):
+for i in range(10000):
     predictions = NN_model(features)
 
     loss = NN_model.loss(predictions, labels)
@@ -49,6 +49,6 @@ for i in range(500):
 
     print(loss)
 
-predictions = NN_model(test_features)
+predictions = NN_model(features)
 
-print(f'predictions : {predictions} \noutputs : {test_outputs}')
+print(f'predictions : {predictions} \noutputs : {outputs}')
